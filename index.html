@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<title>Villa Amelia — Tour 3D</title>
+<link rel="stylesheet" href="style.css">
+<script type="importmap">
+{
+  "imports": {
+    "three": "./vendor/three/three.module.js",
+    "three/addons/": "./vendor/three/jsm/"
+  }
+}
+</script>
+</head>
+<body>
+<canvas id="c"></canvas>
+
+<div id="ui">
+  <header id="topbar">
+    <div id="brand">
+      <span class="title">Villa Amelia</span>
+      <span class="sub">Tour 3D</span>
+    </div>
+    <div id="viewbtns" class="group">
+      <button id="btn-fp" class="btn active" title="Recorrer en primera persona (tecla V)">Recorrer</button>
+      <button id="btn-dh" class="btn" title="Vista de casa de muñecas sin techo (tecla V)">Dollhouse</button>
+    </div>
+    <div id="levelbtns" class="group">
+      <button class="btn lvl" data-level="0" title="Garaje y servicio (+0.00)">N0</button>
+      <button class="btn lvl active" data-level="1" title="Área social y piscina (+1.40)">N1</button>
+      <button class="btn lvl" data-level="2" title="Dormitorios (+3.47)">N2</button>
+      <button class="btn lvl" data-level="3" title="Estar familiar y terrazas (+4.30 / +4.90)">N3</button>
+      <button class="btn lvl" data-level="all" title="Casa completa">Todo</button>
+    </div>
+  </header>
+
+  <div id="roomlabel"></div>
+
+  <div id="hint" class="desktop-only">
+    <b>WASD</b> / flechas: moverse · <b>ratón</b>: mirar · <b>Shift</b>: correr · <b>V</b>: cambiar vista · <b>0-3</b>: nivel
+    <br><span class="small">Haz clic en la escena para capturar el ratón · Esc para soltarlo</span>
+  </div>
+
+  <div id="crosshair"></div>
+
+  <div id="mobile-controls" class="mobile-only">
+    <div id="joy"><div id="joy-knob"></div></div>
+    <div id="look"></div>
+  </div>
+
+  <div id="loading"><div class="spinner"></div><div>Construyendo Villa Amelia…</div></div>
+</div>
+
+<script type="module" src="js/main.js"></script>
+</body>
+</html>

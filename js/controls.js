@@ -1,4 +1,4 @@
-// Primera persona: WASD/flechas + ratón (pointer lock) en escritorio; joystick virtual + arrastre en móvil.
+// Primera persona: WASD/flechas + arrastrar con el ratón en escritorio; joystick virtual + arrastre en móvil.
 // Colisión círculo-vs-cajas orientadas (muros, columnas, mobiliario) y seguimiento del piso por raycast hacia abajo.
 import * as THREE from 'three';
 
@@ -26,7 +26,32 @@ export class FirstPerson {
     this.pos.set(x, zFloor, -y); this.floorY = zFloor; this.eyeY = zFloor + EYE;
     this.yaw = (yawDeg - 90) * deg; this.pitch = 0;
     this.snapFloor(true);
+    this.unstick();
     this.apply();
+  }
+  /** Gira la vista hacia la dirección con más espacio libre si la actual está bloqueada a menos de 1.5 m. */
+  aimOpen() {
+    const free = yaw => { const fx = -Math.sin(yaw), fz = -Math.cos(yaw); let d = 0;
+      for (; d < 4; d += 0.2) { const nx = this.pos.x + fx * d, nz = this.pos.z + fz * d;
+        if (this.collides(nx, nz)) break; const fy = this.probeFloor(nx, nz); if (fy === null || Math.abs(fy - this.floorY) > STEP_MAX) break; }
+      return d; };
+    if (free(this.yaw) >= 1.5) return;
+    let best = this.yaw, bd = -1;
+    for (let a = 0; a < 360; a += 15) { const y = this.yaw + a * deg, d = free(y); if (d > bd) { bd = d; best = y; } }
+    this.yaw = best; this.apply();
+  }
+  /** Si la posición cae dentro de un mueble o muro, busca el punto libre más cercano (espiral hasta 2.5 m). */
+  unstick() {
+    if (!this.collides(this.pos.x, this.pos.z)) return;
+    for (let r = 0.15; r <= 2.5; r += 0.15) {
+      for (let a = 0; a < 360; a += 20) {
+        const nx = this.pos.x + Math.cos(a * deg) * r, nz = this.pos.z + Math.sin(a * deg) * r;
+        if (this.collides(nx, nz)) continue;
+        const fy = this.probeFloor(nx, nz);
+        if (fy === null || Math.abs(fy - this.floorY) > STEP_MAX) continue;
+        this.pos.x = nx; this.pos.z = nz; this.pos.y = fy; this.floorY = fy; this.eyeY = fy + EYE; return;
+      }
+    }
   }
   getPlan() { return { x: this.pos.x, y: -this.pos.z, z: this.floorY, yaw: this.yaw / deg + 90 }; }
 
@@ -36,12 +61,16 @@ export class FirstPerson {
     window.addEventListener('keyup', e => this.keys.delete(e.code));
     window.addEventListener('blur', () => this.keys.clear());
     if (!this.isMobile) {
-      d.addEventListener('click', () => { if (this.enabled && document.pointerLockElement !== d) d.requestPointerLock?.(); });
-      document.addEventListener('mousemove', e => {
-        if (document.pointerLockElement !== d || !this.enabled) return;
-        this.yaw -= e.movementX * 0.0022; this.pitch -= e.movementY * 0.0022;
-        this.pitch = Math.max(-1.35, Math.min(1.35, this.pitch));
+      // Mirar arrastrando con el ratón (sin pointer lock: así los botones siguen siempre accesibles)
+      let dragging = false, lx = 0, ly = 0;
+      d.addEventListener('pointerdown', e => { if (!this.enabled || e.pointerType === 'touch') return; dragging = true; lx = e.clientX; ly = e.clientY; d.setPointerCapture?.(e.pointerId); d.classList.add('grabbing'); });
+      d.addEventListener('pointermove', e => {
+        if (!dragging || !this.enabled) return;
+        this.yaw -= (e.clientX - lx) * 0.0045; this.pitch -= (e.clientY - ly) * 0.0045;
+        this.pitch = Math.max(-1.35, Math.min(1.35, this.pitch)); lx = e.clientX; ly = e.clientY;
       });
+      const end = e => { dragging = false; d.classList.remove('grabbing'); d.releasePointerCapture?.(e.pointerId); };
+      d.addEventListener('pointerup', end); d.addEventListener('pointercancel', end);
     } else this.bindTouch();
   }
 
@@ -100,7 +129,7 @@ export class FirstPerson {
 
   tryMove(dx, dz) {
     const nx = this.pos.x + dx, nz = this.pos.z + dz;
-    if (this.collides(nx, nz)) return false;
+    if (this.collides(nx, nz) && !this.collides(this.pos.x, this.pos.z)) return false;
     const fy = this.probeFloor(nx, nz);
     if (fy === null || fy - this.floorY > STEP_MAX) return false;
     this.pos.x = nx; this.pos.z = nz;

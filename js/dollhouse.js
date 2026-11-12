@@ -20,13 +20,17 @@ export class Dollhouse {
     this.controls.enablePan = true; this.controls.screenSpacePanning = false;
     this.controls.touches = { ONE: THREE.TOUCH.ROTATE, TWO: THREE.TOUCH.DOLLY_PAN };
     this.controls.enabled = false;
-    this.resetView();
     this.enabled = false;
+    this.resetView();
   }
 
   resetView() {
     // Vista cenital ligeramente inclinada desde el suroeste (la calle), toda la casa en cuadro
-    this.camera.position.copy(this.center).add(new THREE.Vector3(-6, 42, 30));
+    // Distancia calculada para que la casa entera (radio ~20 m) quepa también en pantallas verticales (móvil)
+    const R = 20, vf = this.camera.fov * Math.PI / 360, hf = Math.atan(Math.tan(vf) * this.camera.aspect);
+    const dist = Math.min(140, R / Math.tan(Math.min(vf, hf)) * 1.05);
+    const dir = new THREE.Vector3(-6, 42, 30).normalize();
+    this.camera.position.copy(this.center).addScaledVector(dir, dist);
     this.controls.target.copy(this.center);
     this.controls.update();
   }
@@ -57,5 +61,5 @@ export class Dollhouse {
   }
 
   update() { if (this.enabled) this.controls.update(); }
-  setAspect(a) { this.camera.aspect = a; this.camera.updateProjectionMatrix(); }
+  setAspect(a) { this.camera.aspect = a; this.camera.updateProjectionMatrix(); if (!this.enabled) this.resetView(); }
 }

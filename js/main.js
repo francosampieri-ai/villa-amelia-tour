@@ -91,14 +91,14 @@ function setView(v) {
   document.body.classList.toggle('dollhouse', v === 'dollhouse');
   document.getElementById('btn-fp').classList.toggle('active', v === 'fp');
   document.getElementById('btn-dh').classList.toggle('active', v === 'dollhouse');
-  if (v === 'dollhouse') { fp.enabled = false; dollhouse.enable(); dollhouse.applyLevel(currentLevel); document.exitPointerLock?.(); label.classList.remove('show'); }
+  if (v === 'dollhouse') { fp.enabled = false; dollhouse.enable(); dollhouse.applyLevel(currentLevel); label.classList.remove('show'); }
   else { dollhouse.disable(); fp.enabled = true; fp.snapFloor(true); }
 }
 function setLevel(l) {
   currentLevel = l === 'all' ? 'all' : Number(l);
   document.querySelectorAll('.btn.lvl').forEach(b => b.classList.toggle('active', b.dataset.level === String(l)));
   if (view === 'dollhouse') dollhouse.applyLevel(currentLevel);
-  else if (currentLevel !== 'all') { const d = LEVELS[currentLevel]; fp.setPose(d.spawn.x, d.spawn.y, d.z, d.spawn.yaw); }
+  else if (currentLevel !== 'all') { const d = LEVELS[currentLevel]; fp.setPose(d.spawn.x, d.spawn.y, d.z, d.spawn.yaw); fp.aimOpen(); }
 }
 /** Hook de pruebas y de pasos siguientes. */
 function goto(level, x, y, yaw = 90) {
@@ -123,7 +123,7 @@ window.addEventListener('resize', () => {
 });
 
 // ---------------------------------------------------------------- Arranque
-fp.setPose(level1.spawn.x, level1.spawn.y, level1.z, level1.spawn.yaw);
+fp.setPose(level1.spawn.x, level1.spawn.y, level1.z, level1.spawn.yaw); fp.aimOpen();
 setView('fp'); setLevel(1);
 
 let frames = 0;

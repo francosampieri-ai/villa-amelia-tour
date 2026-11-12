@@ -87,3 +87,8 @@ body.touch #roomlabel { bottom: auto; top: calc(128px + env(safe-area-inset-top)
   #brand .title { font-size: 14px; }
   .btn { padding: 8px 9px; min-width: 38px; }
 }
+#c { cursor: grab; }
+#c.grabbing { cursor: grabbing; }
+#topbar { z-index: 20; }
+#mobile-controls { z-index: 5; }
+#roomlabel { z-index: 10; }

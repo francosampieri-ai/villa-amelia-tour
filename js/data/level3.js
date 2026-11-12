@@ -5,7 +5,7 @@ const Z = 4.30, Z3 = 4.90, ZT = 7.10, ZR = 7.40;
 
 export const level3 = {
   id: 3, name: 'N3 · Estar familiar y terrazas', z: Z,
-  spawn: { x: 20.5, y: 14.5, yaw: 180 },
+  spawn: { x: 19.0, y: 10.3, yaw: 135 },  // punto abierto del estar familiar (antes 20.5,14.5 quedaba encerrado entre muebles)
 
   walls: [
     W('W3.1', [18.9, 11.8], [18.9, 17.45], 0.05, Z, 5.35, 'vid', [], { mullions: [13.7, 15.6], transoms: [] }),

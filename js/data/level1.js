@@ -30,17 +30,22 @@ export const level1 = {
     W('W1.7', [6.25, 9.5], [13.4, 9.5], 0.20, Z, 3.47, 'ext'),
     W('W1.8', [13.4, 9.4], [23.0, 9.4], 0.20, Z, 3.47, 'ext'),
     W('W1.9a', [18.75, 9.4], [18.75, 11.65], 0.15, Z, 3.47, 'int'),
-    W('W1.9b', [19.5, 9.4], [19.5, 11.65], 0.15, Z, 3.47, 'int'),
-    W('W1.10', [22.6, 9.4], [22.6, 11.65], 0.15, Z, 4.05, 'int'),
+    W('W1.10', [22.6, 9.4], [22.6, 11.65], 0.15, 0.40, 3.47, 'int'),
+    // Baranda de vidrio de la cocina sobre la caja de escaleras E0.3/E2.1 (fila de montantes en E4, y≈11.5)
+    W('W1.26', [19.4, 11.5], [22.6, 11.5], 0.05, Z, Z + 1.0, 'vid', [], { mullions: [20.2, 21.0, 21.8], transoms: [] }),
     // Muro este de la barra (D1) y pasillo D1-E
-    W('W1.11', [23.0, 9.4], [23.0, 17.65], 0.20, Z, 4.30, 'ext', [door(12.0, 12.8, Z), door(15.6, 16.4, Z)]),
-    W('W1.12', [24.55, 9.4], [24.55, 17.65], 0.15, Z, 4.65, 'int', [door(10.6, 11.4, Z), door(15.2, 16.0, Z)]),
+    // Muro D1: entre y 9.4 y 11.65 sólo hasta +3.47 (encima, W2.26a con el paso E2.1 ↔ distribuidor ↔ E2.2)
+    W('W1.11a', [23.0, 9.4], [23.0, 11.65], 0.20, 0.40, 3.47, 'ext'),
+    W('W1.11', [23.0, 11.65], [23.0, 17.65], 0.20, Z, 4.30, 'ext', [door(12.0, 12.8, Z), door(15.6, 16.4, Z)]),
+    // Tramo de la antesala con techo a +3.47 (la escalera E2.2 pasa encima, 2.07 m libres); el resto hasta +4.65
+    W('W1.12a', [24.55, 9.4], [24.55, 11.65], 0.15, Z, 3.47, 'int', [door(10.6, 11.4, Z)]),
+    W('W1.12', [24.55, 11.65], [24.55, 17.65], 0.15, Z, 4.65, 'int', [door(15.2, 16.0, Z)]),
     W('W1.13', [23.0, 17.65], [29.45, 17.65], 0.20, Z, 4.05, 'ext', [door(23.3, 24.1, Z), door(26.5, 27.9, Z, 2.1, false)]),
     W('W1.14', [29.45, 9.4], [29.45, 17.65], 0.20, Z, 4.65, 'ext', [win(9.6, 11.3, Z, 3.5), win(12.4, 13.0, 3.0, 3.6), door(15.5, 16.3, Z)]),
     W('W1.15', [24.55, 11.4], [29.45, 11.4], 0.15, Z, 4.65, 'int', [door(27.0, 27.8, Z)]),
     W('W1.16', [24.55, 13.0], [29.45, 13.0], 0.15, Z, 4.65, 'int', [door(25.0, 25.8, Z)]),
     W('W1.17', [26.6, 11.4], [26.6, 13.0], 0.15, Z, 4.65, 'int'),
-    W('W1.18', [23.0, 9.4], [29.45, 9.4], 0.20, Z, 4.65, 'ext'),
+    W('W1.18', [24.55, 9.4], [29.45, 9.4], 0.20, Z, 4.65, 'ext'),                 // E4: entre 23.0 y 24.55 pasa la escalera E0.4
     // Caja del baño de visitas (volumen de altura completa, revestido en madera)
     W('W1.19a', [4.35, 13.2], [6.3, 13.2], 0.15, Z, ZT, 'woodSlats'),
     W('W1.19b', [6.3, 13.2], [6.3, 16.1], 0.15, Z, ZT, 'woodSlats'),
@@ -69,10 +74,8 @@ export const level1 = {
 
   slabs: [
     slab([-0.3, 23.0, 11.65, 17.65], Z - 0.25, Z, 'floorSocial', 'ceiling'),     // barra social
-    slab([5.1, 19.7, 9.4, 11.65], Z - 0.25, Z, 'floorSocial', 'ceiling'),        // vestíbulo, galería, base E1.1
-    slab([22.6, 23.2, 9.4, 11.65], Z - 0.25, Z, 'floorSocial', 'ceiling'),
-    slab([23.0, 24.55, 9.4, 9.9], Z - 0.25, Z, 'floorSocial', 'ceiling'),
-    slab([22.6, 24.55, 11.4, 17.65], Z - 0.25, Z, 'floorSocial', 'ceiling'),     // pasillo D1-E
+    slab([6.2, 19.4, 9.4, 11.65], Z - 0.25, Z, 'floorSocial', 'ceiling'),        // galería, base E1.1 y descanso alto de E0.3
+    slab([23.0, 24.55, 11.65, 17.65], Z - 0.25, Z, 'floorSocial', 'ceiling'),    // pasillo D1-E (E0.4 llega en y 11.65)
     slab([24.5, 29.45, 9.4, 17.65], Z - 0.25, Z, 'floorBed', 'ceiling'),         // suite E-F
     // Deck y patios (adoquín espina de pez)
     slab([-3.2, 0.5, 17.65, 26.5], Z - 0.25, Z, 'pavers', 'conc'),
@@ -82,18 +85,19 @@ export const level1 = {
     slab([21.5, 23.0, 17.65, 26.5], Z - 0.25, Z, 'pavers', 'conc'),
     slab([23.0, 29.45, 17.65, 23.25], Z - 0.25, Z, 'pavers', 'conc'),            // BBQ
     slab([23.0, 33.0, 23.25, 26.5], Z - 0.25, Z, 'pavers', 'conc'),
-    slab([29.45, 33.0, 11.65, 23.25], Z - 0.25, Z, 'pavers', 'conc'),            // patio este
+    slab([31.1, 33.0, 11.65, 23.25], Z - 0.25, Z, 'pavers', 'conc'),             // patio este (al este de la rampa)
+    slab([29.45, 31.1, 13.9, 23.25], Z - 0.25, Z, 'pavers', 'conc'),             // patio este (cabecera de la rampa)
     slab([-5.55, -3.2, 17.7, 31.5], Z - 0.25, Z, 'tileGrey', 'conc'),            // piso del MS
     slab([-6.8, -3.2, 17.7, 31.5], 4.8, 5.05, 'conc', 'ceiling'),                // techo del MS
   ],
 
   stairs: [
-    stair('E1.1', [13.4, 17.3, 9.9, 11.4], Z, 3.47, '-x', 13),
+    stair('E1.1', [14.0, 18.0, 9.6, 11.5], Z, 3.47, '-x', 13),                    // E4: 12 huellas 14.0..18.0, 'S' al este, sube al oeste
   ],
   ramps: [],
 
   rooms: [
-    room('Vestíbulo superior', [5.1, 6.25, 9.4, 11.65], Z, 2.6), room('Estudio / recibo', [0.2, 4.3, 11.8, 17.45], Z, 23.2),
+ room('Estudio / recibo', [0.2, 4.3, 11.8, 17.45], Z, 23.2),
     room('Baño de visitas', [4.35, 6.3, 13.2, 16.1], Z, 4.6), room('Bar', [6.3, 10.8, 11.8, 17.45], Z, 7.8),
     room('Sala', [10.8, 14.8, 11.8, 17.45], Z, 22.7), room('Galería', [6.25, 13.4, 9.4, 11.65], Z, 15),
     room('Comedor', [14.8, 18.75, 11.8, 17.45], Z, 22.3), room('Cocina', [18.75, 23.0, 11.8, 17.45], Z, 22.3),

@@ -19,6 +19,11 @@ export function W(id, a, b, t, z0, z1, mat, openings = [], extra = {}) {
 export function door(a, b, floor, h = DOOR_H, leaf = true) {
   return { kind: 'door', a, b, z0: floor, z1: floor + h, leaf };
 }
+/** Puerta con sentido de apertura: swing +1 abre hacia la izquierda del sentido a→b del muro, -1 hacia la derecha;
+ *  hinge 'a' = bisagra en el extremo de menor cota, 'b' = en el de mayor cota. */
+export function doorS(a, b, floor, swing = 1, hinge = 'a', h = DOOR_H) {
+  return { kind: 'door', a, b, z0: floor, z1: floor + h, leaf: true, swing, hinge };
+}
 /** Vano abierto sin carpintería. */
 export function vano(a, b, z0, z1) {
   return { kind: 'void', a, b, z0, z1 };

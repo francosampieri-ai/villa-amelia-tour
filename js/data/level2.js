@@ -1,138 +1,153 @@
-// Nivel N2 · +3.47 · Dormitorios (PLAN §4 y §11.3)
-import { W, door, win, vano, glassDoor, slab, stair, column, room, F } from './common.js';
+// Nivel N2 · +3.47 · Dormitorios (lámina E5, releída en Fase B2: fachada sur en y 1.95, hall en 7.95..9.4 y 5.75..7.95,
+// dormitorio 2 con baño y vestidor, dormitorio 3 con baño-lucernario, master de 23.6 a 30.2 con vestidor y balcón-jardinera)
+import { W, door, doorS, win, vano, glassDoor, slab, stair, column, room, F } from './common.js';
 
-const Z = 3.47, ZT = 7.10;
+const Z = 3.47, ZT = 7.10, YS = 1.95; // cota de piso, techo y fachada sur del bloque
 
 export const level2 = {
   id: 2, name: 'N2 · Dormitorios', z: Z,
-  spawn: { x: 10.0, y: 8.5, yaw: 0 },
+  spawn: { x: 10.0, y: 8.6, yaw: 0 },
 
   walls: [
-    // Muro-estantería hacia la doble altura: antepecho macizo + celosía; hueco de paso del desembarco
-    W('W2.1a', [6.25, 9.4], [18.75, 9.4], 0.20, Z, 4.47, 'planter', [vano(12.3, 13.4, Z, 4.47)]),
-    W('W2.1b', [6.25, 9.4], [18.75, 9.4], 0.15, 4.47, ZT, 'celosia', [vano(12.3, 13.4, 4.47, 5.6)]),
-    // Estantería-celosía sobre el muro TV (M1.5), hacia la sala
+    // Muro-estantería hacia la doble altura: antepecho-jardinera + celosía; hueco de paso del desembarco (E5: 12.6..13.85)
+    W('W2.1a', [6.25, 9.4], [18.75, 9.4], 0.30, Z, 4.47, 'planter', [vano(12.6, 13.85, Z, 4.47)]),
+    W('W2.1b', [6.25, 9.4], [18.75, 9.4], 0.15, 4.47, ZT, 'celosia', [vano(12.6, 13.85, 4.47, 5.6)]),
     W('W1.5b', [6.25, 11.65], [18.75, 11.65], 0.15, Z, ZT, 'celosia'),
-    W('W2.2a', [-0.3, 9.4], [6.25, 9.4], 0.20, Z, ZT, 'int'),
+    W('W2.29', [12.6, 9.6], [12.6, 11.65], 0.05, Z, Z + 1.05, 'vid', [], { mullions: [10.6], transoms: [] }),
+    W('W2.2a', [-0.2, 9.4], [6.25, 9.4], 0.20, Z, ZT, 'int'),
     W('W2.2b', [18.75, 9.4], [23.0, 9.4], 0.20, Z, ZT, 'int'),
-    // Fachadas del bloque de dormitorios
-    W('W2.3', [-0.3, 0.9], [-0.3, 9.4], 0.20, Z, ZT, 'ext'),
-    W('W2.4a', [-0.3, 0.9], [2.0, 0.9], 0.20, Z, ZT, 'ext'),
-    W('W2.4b', [2.0, 0.9], [9.0, 0.9], 0.20, Z, 4.5, 'ext'),                   // antepecho del patio sur
-    W('W2.4c', [9.0, 0.9], [23.0, 0.9], 0.20, Z, ZT, 'ext', [win(13.0, 18.0, 5.3, 6.5)]),
-    W('W2.5', [2.0, 2.3], [9.0, 2.3], 0.05, Z, 6.9, 'vid', [glassDoor(3.0, 3.9, Z, 2.4)], { mullions: [3.9, 6.1, 7.5], transoms: [] }),
-    W('W2.6a', [2.0, 0.9], [2.0, 2.3], 0.20, Z, ZT, 'ext'),
-    W('W2.6b', [9.0, 0.9], [9.0, 2.3], 0.20, Z, ZT, 'ext'),
-    // Dormitorios 1 y 2
-    W('W2.7', [0.3, 7.6], [9.0, 7.6], 0.15, Z, ZT, 'int', [door(3.9, 4.6, Z), door(8.3, 9.0, Z)]),
-    W('W2.8', [6.1, 2.3], [6.1, 7.6], 0.15, Z, ZT, 'int'),
-    W('W2.9a', [2.0, 7.6], [2.0, 9.4], 0.15, Z, ZT, 'int', [door(8.0, 8.8, Z, 2.1)]),
-    W('W2.9b', [0.3, 8.8], [3.8, 8.8], 0.15, Z, ZT, 'int'),
-    W('W2.10', [3.8, 7.6], [3.8, 9.4], 0.15, Z, ZT, 'int'),
-    // Baños 2-3 y dormitorio 3
-    W('W2.11', [9.0, 0.9], [9.0, 7.6], 0.15, Z, ZT, 'int', [door(3.4, 4.2, Z), door(5.0, 5.6, Z)]),
-    W('W2.12a', [9.0, 4.2], [12.9, 4.2], 0.15, Z, ZT, 'int'),
-    W('W2.12b', [10.9, 0.9], [10.9, 4.2], 0.15, Z, ZT, 'int'),
-    W('W2.13', [9.0, 5.6], [18.6, 5.6], 0.15, Z, ZT, 'int', [door(17.6, 18.4, Z)]),
-    W('W2.14a', [12.9, 0.9], [12.9, 5.6], 0.15, Z, ZT, 'int'),
-    W('W2.14b', [13.5, 0.9], [13.5, 5.2], 0.15, Z, ZT, 'int', [door(2.0, 2.8, Z)]),
-    W('W2.14c', [14.6, 0.9], [14.6, 5.2], 0.15, Z, ZT, 'int'),
-    W('W2.15', [18.6, 0.9], [18.6, 9.4], 0.15, Z, ZT, 'int', [door(8.5, 9.3, Z)]),
-    // Master: pasillo, vestidor, baño
-    W('W2.16', [18.6, 8.0], [22.85, 8.0], 0.15, Z, ZT, 'int'),
-    W('W2.17a', [18.6, 5.6], [22.6, 5.6], 0.15, Z, ZT, 'int'),
-    W('W2.17b', [19.0, 5.6], [19.0, 8.0], 0.15, Z, ZT, 'int'),
-    W('W2.18', [22.6, 2.4], [22.6, 8.0], 0.15, Z, ZT, 'int', [door(4.5, 5.3, Z), door(6.0, 6.8, Z)]),
-    W('W2.19', [22.85, 8.0], [22.85, 9.4], 0.15, Z, ZT, 'int', [vano(8.3, 9.3, Z, 2.4)]),
-    W('W2.20a', [18.6, 2.4], [22.6, 2.4], 0.20, Z, ZT, 'ext'),
-    W('W2.20b', [18.6, 0.9], [18.6, 2.4], 0.20, Z, ZT, 'ext'),
-    W('W2.20c', [19.8, 2.6], [19.8, 4.0], 0.05, Z, ZT, 'vid'),                  // V2.3 vidrio a la jardinera-lucernario
-    W('W2.20d', [18.8, 2.6], [19.8, 2.6], 0.10, Z, ZT, 'int'),
-    W('W2.20e', [18.8, 4.0], [19.8, 4.0], 0.10, Z, ZT, 'int'),
-    // Dormitorio master
-    W('W2.21', [23.0, 9.4], [29.45, 9.4], 0.20, Z, ZT, 'ext', [door(23.3, 24.1, Z)]),
-    W('W2.22', [29.45, 1.6], [29.45, 9.4], 0.05, Z, ZT, 'vid', [glassDoor(5.0, 6.0, Z, 2.4)], { mullions: [3.2, 5.0, 6.0, 7.8], transoms: [] }),
-    W('W2.23a', [31.0, 1.6], [31.0, 9.4], 0.20, Z, ZT, 'ext'),
-    W('W2.23b', [29.45, 9.4], [31.0, 9.4], 0.20, Z, ZT, 'ext'),
-    W('W2.23c', [29.45, 1.6], [31.0, 1.6], 0.20, Z, 5.0, 'ext'),
-    W('W2.24', [23.0, 1.6], [29.45, 1.6], 0.20, Z, 5.0, 'ext', [glassDoor(25.5, 27.5, Z, 2.4), win(23.5, 25.3, Z + 0.9, 2.4 + Z), win(27.7, 29.3, Z + 0.9, 2.4 + Z)]),
-    W('W2.24b', [23.0, 1.6], [23.0, 2.4], 0.20, Z, ZT, 'ext'),
-    // Balcón-jardinera en U (antepecho)
-    W('W2.25a', [23.5, 1.6], [23.5, -2.0], 0.30, Z, 4.6, 'planter'),
-    W('W2.25b', [23.5, -2.0], [29.5, -2.0], 0.30, Z, 4.6, 'planter'),
-    W('W2.25c', [29.5, -2.0], [29.5, 1.6], 0.30, Z, 4.6, 'planter'),
-    // Distribuidor D1-E y lateral de E2.1
-    W('W2.26a', [23.0, 9.4], [23.0, 11.65], 0.15, Z, 4.65, 'int', [vano(9.9, 11.5, Z, 4.65)]),
-    W('W2.26b', [24.55, 9.4], [24.55, 11.65], 0.15, Z, 4.65, 'int', [vano(9.9, 11.5, Z, 4.65)]),
+    // Fachadas del bloque
+    W('W2.3', [-0.2, YS], [-0.2, 9.4], 0.20, Z, ZT, 'ext'),
+    W('W2.4a', [-0.2, YS], [2.15, YS], 0.20, Z, ZT, 'ext'),
+    W('W2.4b', [2.15, YS], [8.9, YS], 0.20, Z, 4.5, 'ext'),                        // antepecho del patio-jardinera
+    W('W2.4c', [8.9, YS], [21.76, YS], 0.20, Z, ZT, 'ext', [win(14.3, 18.3, 5.3, 6.5)]),
+    W('W2.5', [2.15, 3.3], [8.9, 3.3], 0.05, Z, 6.9, 'vid', [glassDoor(3.0, 3.9, Z, 2.4), glassDoor(7.3, 8.2, Z, 2.4)], { mullions: [3.9, 6.1, 7.3], transoms: [] }),
+    W('W2.6a', [2.15, YS], [2.15, 3.3], 0.20, Z, ZT, 'ext'),
+    W('W2.6b', [8.9, YS], [8.9, 3.3], 0.20, Z, ZT, 'ext'),
+    // Dormitorios 1 y 2, baño 1 (0..4.2 × 7.95..9.4, entra desde el dormitorio 1)
+    W('W2.7', [-0.2, 7.95], [10.05, 7.95], 0.15, Z, ZT, 'int', [doorS(3.4, 4.12, Z, 1, 'b'), doorS(5.2, 6.0, Z, -1, 'b')]),
+    W('W2.8', [6.08, 3.3], [6.08, 7.95], 0.15, Z, ZT, 'int'),
+    W('W2.10', [4.2, 7.95], [4.2, 9.4], 0.15, Z, ZT, 'int'),
+    // Dormitorio 2: baño (10.1..12 × 3.3..5.75 + WC 10.1..12 × 1.95..3.3) y vestidor (12..14 × 1.95..5.75)
+    W('W2.11', [10.05, 3.3], [10.05, 7.95], 0.15, Z, ZT, 'int', [doorS(3.55, 4.2, Z, 1, 'b'), doorS(6.95, 7.75, Z, 1, 'b')]),
+    W('W2.12a', [8.9, 3.3], [12.0, 3.3], 0.15, Z, ZT, 'int', [doorS(10.2, 10.9, Z, -1, 'a')]),
+    W('W2.12b', [12.0, YS], [12.0, 5.75], 0.15, Z, ZT, 'int', [vano(4.3, 5.17, Z, 2.3)]),
+    W('W2.13', [10.05, 5.75], [18.55, 5.75], 0.15, Z, ZT, 'int', [doorS(17.6, 18.4, Z, -1, 'b')]),
+    W('W2.14', [14.0, YS], [14.0, 5.75], 0.15, Z, ZT, 'int'),
+    // Dormitorio 3 (14..18.55 × 1.95..5.75): vidrio a la jardinera-lucernario y paso a su baño/closet
+    W('W2.15a', [18.55, YS], [18.55, 4.3], 0.05, Z, ZT, 'vid'),
+    W('W2.15b', [18.55, 5.2], [18.55, 8.0], 0.15, Z, ZT, 'int'),
+    W('W2.15c', [18.55, 8.9], [18.55, 9.4], 0.15, Z, ZT, 'int'),
+    // Baño del dormitorio 3 (lavabos 18.55..21.7 × 4.03..5.95; WC-ducha 20.1..21.7 × 1.95..4.03 con lucernario) y su closet (18.7..20.9 × 5.95..7.95)
+    W('W2.16', [18.55, 8.0], [23.6, 8.0], 0.15, Z, ZT, 'int'),
+    W('W2.17a', [18.55, 5.95], [19.4, 5.95], 0.15, Z, ZT, 'int'),
+    W('W2.17b', [20.2, 5.95], [21.76, 5.95], 0.15, Z, ZT, 'int'),
+    W('W2.17c', [21.0, 5.95], [21.0, 7.95], 0.15, Z, ZT, 'int'),
+    W('W2.17d', [21.7, 4.03], [21.7, 5.95], 0.15, Z, ZT, 'int'),
+    W('W2.20a', [18.55, 4.03], [21.76, 4.03], 0.15, Z, ZT, 'int', [doorS(20.2, 20.84, Z, -1, 'a')]),
+    W('W2.20c', [20.1, YS], [20.1, 4.03], 0.05, Z, ZT, 'vid'),                      // vidrio del baño a la jardinera
+    // Master: vestidor (21..23.5 × 6..7.95 + 21.76..23.5 × 4.03..6) y antebaño (21.76..23.6 × 2.45..4.03) abierto al dormitorio
+    W('W2.18', [23.6, 4.03], [23.6, 9.4], 0.15, Z, ZT, 'int'),
+    W('W2.20b', [21.76, 4.03], [23.6, 4.03], 0.15, Z, ZT, 'int', [doorS(21.94, 22.63, Z, 1, 'a')]),
+    W('W2.31', [21.76, 2.45], [21.76, 4.03], 0.20, Z, ZT, 'ext'),
+    W('W2.21', [23.0, 9.4], [30.3, 9.4], 0.20, Z, ZT, 'ext', [doorS(23.05, 23.7, Z, -1, 'b')]),
+    W('W2.22', [30.2, 2.0], [30.2, 9.4], 0.05, Z, ZT, 'vid', [glassDoor(5.2, 6.2, Z, 2.4)], { mullions: [3.4, 5.2, 6.2, 7.8], transoms: [] }),
+    W('W2.23a', [31.6, 2.0], [31.6, 9.4], 0.20, Z, ZT, 'ext'),
+    W('W2.23b', [30.2, 9.4], [31.6, 9.4], 0.20, Z, ZT, 'ext'),
+    W('W2.23c', [30.2, 2.0], [31.6, 2.0], 0.20, Z, 5.0, 'ext'),
+    W('W2.24a', [21.76, 2.45], [24.9, 2.45], 0.20, Z, 5.0, 'ext', [doorS(24.0, 24.9, Z, -1, 'b', 2.3)]),
+    W('W2.24', [24.9, 2.0], [30.3, 2.0], 0.20, Z, 5.0, 'ext', [win(25.6, 29.0, Z + 0.9, Z + 2.4)]),
+    W('W2.24c', [24.9, 2.0], [24.9, 2.45], 0.20, Z, 5.0, 'ext'),
+    // Balcón-jardinera en U (22.6..30.3 × -1.6..2.45): cierre perimetral 1.2 m + jardineras interiores
+    W('W2.25a', [22.6, 2.45], [22.6, -1.6], 0.20, Z, 4.7, 'ext'),
+    W('W2.25b', [22.6, -1.6], [30.3, -1.6], 0.20, Z, 4.7, 'ext'),
+    W('W2.25c', [30.3, -1.6], [30.3, 2.0], 0.20, Z, 4.7, 'ext'),
+    W('W2.25d', [24.9, 1.55], [30.1, 1.55], 0.50, Z, 4.3, 'planter'),
+    W('W2.25e', [29.85, -1.4], [29.85, 1.3], 0.60, Z, 4.3, 'planter'),
+    W('W2.25f', [22.8, -1.25], [30.1, -1.25], 0.50, Z, 4.3, 'planter'),
+    W('W2.25g', [23.1, -1.0], [23.1, 0.3], 0.80, Z, 4.3, 'planter'),
+    // Distribuidor D1-E y caja de E2.1
+    W('W2.26a', [23.0, 9.4], [23.0, 11.65], 0.15, Z, 4.65, 'int', [vano(9.6, 11.2, Z, 4.65)]),
+    W('W2.26b', [24.55, 9.4], [24.55, 11.65], 0.15, Z, 4.65, 'int', [vano(9.6, 11.2, Z, 4.65)]),
+    W('W2.30', [24.9, 11.2], [26.0, 11.2], 0.05, 4.1, 5.15, 'vid'),
     W('W2.27', [18.75, 9.4], [18.75, 11.65], 0.15, Z, 4.30, 'int'),
   ],
 
   columns: [
     ...[0, 6.25, 12.5, 18.75].map(x => column(x, 9.4, Z, ZT)),
-    column(23.0, 9.4, Z, ZT), column(23.0, 0.9, Z, ZT), column(0.0, 0.9, Z, ZT), column(6.25, 0.9, Z, ZT), column(12.5, 0.9, Z, ZT), column(18.75, 0.9, Z, ZT),
+    column(23.0, 9.4, Z, ZT), ...[0, 6.25, 12.5, 18.75, 23.0].map(x => column(x, YS, Z, ZT)),
   ],
 
   slabs: [
-    slab([-4.8, 29.6, -3.0, 9.4], Z - 0.30, Z, 'floorBed', 'ceiling'),            // losa de dormitorios (techo del garaje)
-    slab([12.3, 13.4, 9.4, 11.65], Z - 0.30, Z, 'floorBed', 'ceiling'),            // desembarco 2.1
-    slab([18.75, 29.45, 9.4, 11.65], Z - 0.30, Z, 'floorBed', 'ceiling'),          // sobre E0.3/E0.4: distribuidor y base de E2.1/E2.2
-    slab([29.45, 31.0, 1.6, 9.4], Z - 0.30, Z, 'grass', 'ceiling'),                // jardín del master
-    slab([23.5, 29.5, -2.0, 1.6], Z - 0.30, Z, 'deckWood', 'ceiling'),             // balcón sur
+    slab([-4.8, 30.3, -3.0, 9.4], Z - 0.30, Z, 'floorBed', 'ceiling'),            // losa de dormitorios (techo del garaje)
+    slab([12.6, 14.0, 9.4, 11.65], Z - 0.30, Z, 'floorBed', 'ceiling'),            // desembarco de E1.1
+    slab([21.2, 23.0, 9.4, 11.65], Z - 0.30, Z, 'floorBed', 'ceiling'),            // descanso bajo de E2.1
+    slab([23.0, 24.55, 9.4, 11.65], Z - 0.15, Z, 'floorBed', 'ceiling'),           // distribuidor: losa fina (2.07 m libres sobre E0.4)
+    slab([24.55, 29.45, 9.4, 11.65], Z - 0.30, Z, 'floorBed', 'ceiling'),          // techo de la antesala de la suite
+    slab([24.9, 26.0, 9.6, 11.2], 3.86, 4.106, 'floorBed', 'ceiling'),             // descanso intermedio de E2.2
+    slab([30.2, 31.6, 2.0, 9.4], Z - 0.30, Z, 'grass', 'ceiling'),                 // jardín del master
+    slab([22.6, 30.3, -1.6, 2.45], Z - 0.30, Z, 'deckWood', 'ceiling'),            // balcón sur
   ],
 
   floors: [
-    { box: [2.0, 9.0, 0.9, 2.3], z: Z + 0.01, mat: 'gravel' },                     // patio-jardinera sur
-    { box: [18.8, 19.8, 2.6, 4.0], z: Z + 0.01, mat: 'gravel' },                   // jardinera baño master
-    { box: [3.8, 18.6, 7.6, 9.4], z: Z + 0.005, mat: 'floorBed' },
+    { box: [2.15, 8.9, YS, 3.3], z: Z + 0.01, mat: 'gravel' },                     // patio-jardinera sur
+    { box: [18.6, 20.1, YS, 4.03], z: Z + 0.01, mat: 'gravel' },                   // jardinera-lucernario del baño 3
+    { box: [4.2, 18.55, 7.95, 9.4], z: Z + 0.005, mat: 'floorBed' },
+    { box: [10.05, 18.55, 5.75, 7.95], z: Z + 0.005, mat: 'floorBed' },
   ],
 
   stairs: [
-    stair('E2.1', [21.1, 22.6, 9.9, 11.5], Z, 4.30, '-x', 5),
-    stair('E2.2', [24.6, 27.3, 9.9, 11.5], Z, 4.90, '+x', 9),
+    stair('E2.1', [19.4, 21.2, 9.6, 11.5], Z, 4.30, '-x', 5),
+    stair('E2.2a', [23.3, 24.9, 9.6, 11.2], Z, 4.106, '+x', 4, 'stair', { rail: '+y' }),
+    stair('E2.2b', [26.0, 28.3, 9.6, 11.2], 4.106, 4.90, '+x', 5, 'stair', { rail: '+y' }),
   ],
   ramps: [],
 
   rooms: [
-    room('Desembarco escalera', [12.3, 13.4, 9.4, 11.65], Z, 2.0), room('Hall íntimo', [3.8, 18.6, 5.6, 9.4], Z, 45.8),
-    room('Dormitorio 1', [0.3, 6.1, 2.3, 7.6], Z, 30.7), room('Baño dormitorio 1', [0.3, 2.0, 7.6, 8.8], Z, 3.1),
-    room('Dormitorio 2', [6.1, 9.0, 2.3, 7.6], Z, 15.4), room('Baño dormitorio 2', [9.0, 10.9, 0.9, 4.2], Z, 6.1),
-    room('Baño dormitorio 3', [9.0, 12.9, 4.2, 5.6], Z, 9.5), room('Dormitorio 3', [12.9, 18.6, 0.9, 5.6], Z, 25.3),
-    room('Patio-jardinera sur', [2.0, 9.0, 0.9, 2.3], Z, 9.8), room('Pasillo master', [18.6, 22.85, 8.0, 9.4], Z, 5.7),
-    room('Vestidor master', [19.0, 22.6, 5.6, 8.0], Z, 8.6), room('Baño master', [18.6, 22.6, 2.4, 5.6], Z, 12.8),
-    room('Dormitorio master', [22.6, 29.45, 1.6, 9.4], Z, 45.2), room('Jardín del master', [29.45, 31.0, 1.6, 9.4], Z, 12),
-    room('Balcón-jardinera sur', [23.5, 29.5, -2.0, 1.6], Z, 21.6), room('Distribuidor D1-E', [23.0, 24.55, 9.4, 11.65], Z, 3.5),
+    room('Desembarco escalera', [12.6, 14.0, 9.4, 11.65], Z, 2.0), room('Hall íntimo', [4.2, 18.55, 7.95, 9.4], Z, 45.8),
+    room('Hall íntimo', [10.05, 18.55, 5.75, 7.95], Z, 45.8),
+    room('Dormitorio 1', [-0.2, 6.08, 3.3, 7.95], Z, 29), room('Baño dormitorio 1', [-0.2, 4.2, 7.95, 9.4], Z, 6.2),
+    room('Dormitorio 2', [6.08, 10.05, 3.3, 7.95], Z, 18.4), room('Baño dormitorio 2', [10.05, 12.0, YS, 5.75], Z, 7.2),
+    room('Vestidor dormitorio 2', [12.0, 14.0, YS, 5.75], Z, 7.6), room('Dormitorio 3', [14.0, 18.55, YS, 5.75], Z, 17.3),
+    room('Baño dormitorio 3', [18.55, 21.76, YS, 5.95], Z, 8.5), room('Closet dormitorio 3', [18.55, 21.0, 5.95, 7.95], Z, 4.9),
+    room('Patio-jardinera sur', [2.15, 8.9, YS, 3.3], Z, 9.1), room('Pasillo master', [18.55, 23.6, 8.0, 9.4], Z, 7.1),
+    room('Vestidor master', [21.0, 23.6, 4.03, 7.95], Z, 8.9), room('Antebaño master', [21.76, 23.6, 2.45, 4.03], Z, 2.9),
+    room('Dormitorio master', [23.6, 30.2, 2.0, 9.4], Z, 48.8), room('Jardín del master', [30.2, 31.6, 2.0, 9.4], Z, 10.4),
+    room('Balcón-jardinera sur', [22.6, 30.3, -1.6, 2.45], Z, 28), room('Distribuidor D1-E', [23.0, 24.55, 9.4, 11.65], Z, 3.5),
   ],
 
   furniture: [
     // Hall
-    F('bench', 11.0, 8.5, Z, 2.4, 0.5, 0.45), F('shelf', 6.0, 9.2, Z, 2.0, 0.35, 0.9), F('floorLamp', 4.5, 8.9, Z, 0.4, 0.4, 1.7),
-    F('plant', 17.9, 9.0, Z, 0.8, 0.8, 1.7), F('rug', 12.5, 7.0, Z, 6.0, 1.6, 0.01, 0, { color: 0xb8ada0 }),
-    // Dormitorio 1
-    F('bed', 3.1, 5.0, Z, 2.2, 1.6, 0.55, 0, { headAt: '-x' }), F('nightstand', 2.2, 3.7, Z, 0.45, 0.45, 0.5), F('nightstand', 2.2, 6.3, Z, 0.45, 0.45, 0.5),
-    F('closet', 1.8, 4.9, Z, 0.4, 1.6, 2.3), F('closet', 0.7, 6.3, Z, 0.4, 2.2, 2.3), F('rug', 3.8, 5.0, Z, 3.0, 2.6, 0.01, 0, { color: 0xc9c2b4 }),
-    F('painting', 5.0, 7.5, Z, 1.4, 0.05, 1.0, 0, { color: 0x3b556d }), F('armchair', 5.3, 3.2, Z, 0.8, 0.8, 0.8, 135),
-    // Dormitorio 2
-    F('bed', 7.25, 5.0, Z, 2.1, 1.6, 0.55, 0, { headAt: '-x' }), F('nightstand', 6.4, 6.3, Z, 0.4, 0.4, 0.5), F('closet', 8.7, 7.0, Z, 0.5, 1.1, 2.3),
-    // Dormitorio 3
-    F('bed', 16.25, 3.5, Z, 1.6, 2.2, 0.55, 0, { headAt: '+y' }), F('nightstand', 15.2, 4.5, Z, 0.45, 0.45, 0.5), F('nightstand', 17.3, 4.5, Z, 0.45, 0.45, 0.5),
-    F('desk', 17.5, 1.5, Z, 1.4, 0.6, 0.75), F('chair', 17.5, 2.1, Z, 0.5, 0.5, 0.9, 90), F('closet', 14.05, 3.0, Z, 1.0, 4.0, 2.3),
-    // Baños 1-3
-    F('sink', 1.1, 8.3, Z, 0.5, 0.45, 0.85), F('toilet', 1.6, 8.3, Z, 0.4, 0.6, 0.75), F('shower', 0.7, 7.95, Z, 0.7, 0.6, 2.0),
-    F('sink', 9.95, 3.7, Z, 0.5, 0.45, 0.85), F('toilet', 10.5, 2.6, Z, 0.4, 0.6, 0.75), F('shower', 9.9, 1.4, Z, 0.9, 0.9, 2.0),
-    F('sink', 11.0, 4.9, Z, 0.6, 0.45, 0.85), F('toilet', 9.4, 4.9, Z, 0.4, 0.6, 0.75), F('shower', 12.4, 4.9, Z, 0.9, 0.9, 2.0),
-    // Master
-    F('bed', 26.4, 6.05, Z, 2.0, 2.2, 0.55, 0, { headAt: '-y' }), F('headboard', 26.3, 4.75, Z, 3.4, 0.2, 1.2),
-    F('nightstand', 25.0, 5.3, Z, 0.5, 0.5, 0.5), F('nightstand', 27.8, 5.3, Z, 0.5, 0.5, 0.5),
-    F('armchair', 25.0, 2.9, Z, 0.8, 0.8, 0.8, 0), F('armchair', 27.6, 2.9, Z, 0.8, 0.8, 0.8, 0), F('coffeeTable', 26.3, 2.9, Z, 0.7, 0.7, 0.4),
-    F('rug', 26.4, 6.5, Z, 3.6, 3.4, 0.01, 0, { color: 0xbfb3a2 }), F('painting', 23.1, 7.0, Z, 0.05, 1.6, 1.1, 0, { color: 0x7a5a3a }),
-    F('plant', 28.9, 8.9, Z, 0.8, 0.8, 1.7),
-    // Baño master y vestidor
-    F('bathtub', 20.6, 3.2, Z, 1.7, 0.8, 0.6), F('doubleSink', 21.5, 5.25, Z, 1.6, 0.5, 0.85), F('shower', 19.3, 5.0, Z, 1.0, 1.0, 2.0), F('toilet', 22.2, 2.8, Z, 0.4, 0.65, 0.75, 0),
-    F('closet', 19.3, 6.8, Z, 0.6, 2.4, 2.4), F('closet', 22.3, 6.8, Z, 0.6, 2.4, 2.4), F('closet', 20.8, 5.95, Z, 2.4, 0.6, 2.4),
+    F('bench', 14.0, 6.6, Z, 2.4, 0.5, 0.45), F('shelf', 7.0, 9.15, Z, 2.0, 0.35, 0.9), F('floorLamp', 4.6, 9.0, Z, 0.4, 0.4, 1.7),
+    F('plant', 18.1, 9.0, Z, 0.8, 0.8, 1.7), F('rug', 14.3, 6.85, Z, 6.0, 1.6, 0.01, 0, { color: 0xb8ada0 }),
+    // Dormitorio 1 (cama 2.15..4.35 × 4.3..6.1, cabecera-closet al oeste, ropero en la pared oeste)
+    F('bed', 3.25, 5.2, Z, 2.2, 1.8, 0.55, 0, { headAt: '-x' }), F('nightstand', 2.45, 6.45, Z, 0.4, 0.5, 0.5), F('nightstand', 2.45, 3.95, Z, 0.4, 0.5, 0.5),
+    F('closet', 1.85, 5.95, Z, 0.6, 1.7, 2.3), F('closet', 0.1, 6.4, Z, 0.4, 2.8, 2.3), F('rug', 4.0, 5.2, Z, 2.8, 2.6, 0.01, 0, { color: 0xc9c2b4 }),
+    F('painting', 5.2, 7.85, Z, 1.4, 0.05, 1.0, 0, { color: 0x3b556d }), F('armchair', 5.3, 3.9, Z, 0.8, 0.8, 0.8, 135),
+    F('shower', 0.5, 8.6, Z, 0.9, 0.9, 2.0), F('sink', 1.7, 8.55, Z, 0.6, 0.45, 0.85, 180), F('toilet', 2.8, 8.6, Z, 0.4, 0.6, 0.75, 180),
+    F('closet', 2.0, 9.17, Z, 3.9, 0.25, 2.3),
+    // Dormitorio 2 (cama 6.4..8.6 × 4.3..6.1) con baño y vestidor
+    F('bed', 7.5, 5.2, Z, 2.2, 1.8, 0.55, 0, { headAt: '-x' }), F('nightstand', 6.6, 6.45, Z, 0.4, 0.5, 0.5), F('nightstand', 6.6, 3.95, Z, 0.4, 0.5, 0.5),
+    F('rug', 8.3, 5.2, Z, 2.2, 2.6, 0.01, 0, { color: 0xc4bcae }), F('painting', 9.95, 5.4, Z, 0.05, 1.3, 1.0, 0, { color: 0x6d5a48 }),
+    F('sink', 11.0, 5.45, Z, 0.9, 0.45, 0.85, 180), F('toilet', 10.6, 2.4, Z, 0.4, 0.6, 0.75, 0), F('shower', 11.5, 2.6, Z, 0.9, 1.1, 2.0),
+    F('closet', 13.7, 3.85, Z, 0.5, 3.7, 2.3), F('closet', 12.3, 3.0, Z, 0.5, 2.0, 2.3), F('closet', 13.0, 5.4, Z, 1.9, 0.5, 2.3),
+    // Dormitorio 3 (cama 15.4..17.05 × 2.0..4.0, cabecera al sur) con baño-lucernario y closet
+    F('bed', 16.2, 3.05, Z, 1.65, 2.1, 0.55, 0, { headAt: '-y' }), F('nightstand', 15.05, 2.4, Z, 0.45, 0.45, 0.5), F('nightstand', 17.4, 2.4, Z, 0.45, 0.45, 0.5),
+    F('rug', 16.2, 4.3, Z, 2.6, 1.6, 0.01, 0, { color: 0xbfb6a8 }), F('painting', 14.1, 4.0, Z, 0.05, 1.2, 0.9, 0, { color: 0x4f5b45 }),
+    F('doubleSink', 20.6, 5.65, Z, 1.4, 0.5, 0.85, 0), F('shower', 20.6, 2.55, Z, 0.9, 1.0, 2.0), F('toilet', 21.35, 3.5, Z, 0.4, 0.6, 0.75, 90),
+    F('closet', 18.9, 7.0, Z, 0.45, 1.95, 2.3), F('closet', 20.65, 7.0, Z, 0.45, 1.95, 2.3),
+    // Master: vestidor, antebaño, cama con murete-cabecera y baño detrás del murete
+    F('closet', 22.25, 7.7, Z, 2.5, 0.5, 2.3), F('closet', 23.27, 5.85, Z, 0.5, 3.1, 2.3),
+    F('shower', 22.3, 3.2, Z, 1.0, 1.0, 2.0), F('toilet', 23.2, 2.9, Z, 0.4, 0.6, 0.75, 90),
+    F('bed', 27.45, 5.8, Z, 2.1, 2.2, 0.55, 0, { headAt: '-y' }), F('headboard', 27.3, 4.57, Z, 4.5, 0.2, 1.3), F('headboard', 24.96, 4.25, Z, 0.2, 0.65, 1.3),
+    F('nightstand', 26.05, 4.95, Z, 0.55, 0.5, 0.5), F('nightstand', 28.85, 4.95, Z, 0.55, 0.5, 0.5),
+    F('bathtub', 28.3, 3.0, Z, 1.7, 0.8, 0.6), F('doubleSink', 26.6, 4.2, Z, 1.6, 0.5, 0.85, 180),
+    F('armchair', 24.6, 8.5, Z, 0.8, 0.8, 0.8, -45), F('rug', 27.45, 7.3, Z, 3.6, 2.4, 0.01, 0, { color: 0xbfb3a2 }),
+    F('painting', 23.7, 7.0, Z, 0.05, 1.6, 1.1, 0, { color: 0x7a5a3a }), F('plant', 29.7, 8.9, Z, 0.8, 0.8, 1.7),
     // Patios y jardineras
-    F('plant', 3.0, 1.6, Z, 0.9, 0.9, 1.4), F('plant', 5.5, 1.6, Z, 1.0, 1.0, 1.6), F('plant', 8.0, 1.6, Z, 0.8, 0.8, 1.3),
-    F('plant', 19.3, 3.3, Z, 0.8, 0.8, 1.5), F('shrub', 30.2, 3.5, Z, 1.2, 1.2, 1.2), F('shrub', 30.2, 7.5, Z, 1.2, 1.2, 1.4),
-    F('hedge', 26.5, -1.85, Z + 1.13, 5.8, 0.3, 0.5), F('hedge', 23.65, -0.2, Z + 1.13, 0.3, 3.4, 0.5), F('hedge', 29.35, -0.2, Z + 1.13, 0.3, 3.4, 0.5),
-    F('hedge', 12.5, 9.33, 4.47, 11.5, 0.3, 0.45),                                   // jardineras colgantes del muro-estantería
+    F('plant', 3.0, 2.65, Z, 0.9, 0.9, 1.4), F('plant', 5.5, 2.65, Z, 1.0, 1.0, 1.6), F('plant', 8.0, 2.65, Z, 0.8, 0.8, 1.3),
+    F('plant', 19.3, 3.0, Z, 0.8, 0.8, 1.5), F('shrub', 30.9, 3.5, Z, 1.2, 1.2, 1.2), F('shrub', 30.9, 7.5, Z, 1.2, 1.2, 1.4),
+    F('hedge', 27.5, 1.55, Z + 0.83, 5.0, 0.3, 0.5), F('hedge', 29.85, -0.05, Z + 0.83, 0.3, 2.5, 0.5), F('hedge', 26.4, -1.25, Z + 0.83, 6.6, 0.3, 0.5),
+    F('hedge', 9.5, 9.33, 4.47, 6.2, 0.3, 0.45), F('hedge', 16.1, 9.33, 4.47, 4.4, 0.3, 0.45),   // jardineras colgantes del muro-estantería
   ],
 };

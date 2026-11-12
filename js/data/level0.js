@@ -24,10 +24,14 @@ export const level0 = {
     W('W0.6', [-4.8, 9.4], [23.0, 9.4], 0.20, 0, ZT, 'ext', [
       door(-3.6, -2.8, 0.25, 2.1),          // P0.5 pasillo → cuarto de guardia
       door(0.7, 2.2, 0.0, 2.3, false),      // P0.3 pasillo → garaje (doble batiente, abierta)
+      door(21.6, 22.4, 0.40, 2.5),          // vestíbulo 0.4 → descanso bajo de E0.3 (arco en E3)
     ]),
-    // Fondo norte del pasillo de entrada y frente de la losa social
+    // Fondo norte del pasillo de entrada y frente de la losa social (la escalera E0.1 ocupa 4.65..6.2)
     W('W0.7a', [-4.85, 11.65], [-0.3, 11.65], 0.20, 0.25, 3.2, 'ext', [door(-1.3, -0.3, 0.25, 2.1)]),
-    W('W0.7b', [-0.3, 11.65], [5.1, 11.65], 0.20, 0.0, 1.40, 'conc'),
+    W('W0.7b', [-0.3, 11.65], [4.65, 11.65], 0.20, 0.0, 1.40, 'conc'),
+    // Caja de la escalera E0.3 (+0.40 → +1.40): relleno bajo el descanso alto y bajo la losa de la cocina
+    W('W0.22', [19.4, 9.4], [19.4, 11.65], 0.15, 0.0, 1.15, 'int'),
+    W('W0.23', [19.4, 11.65], [23.0, 11.65], 0.20, 0.0, 1.15, 'conc'),
     // Reja peatonal (entrada principal) P0.2
     W('W0.8', [-4.85, 9.4], [-4.85, 11.65], 0.15, 0, 2.5, 'lamas', [door(9.9, 10.9, 0.25, 2.2, false)]),
     // Vestíbulo de garaje 0.4 (+0.40)
@@ -46,8 +50,9 @@ export const level0 = {
     W('W0.16', [27.5, 5.2], [27.5, 9.4], 0.15, 0.40, ZT, 'int', [door(6.4, 7.2, 0.40), door(8.0, 8.8, 0.40)]),
     W('W0.17', [27.5, 7.6], [29.45, 7.6], 0.15, 0.40, ZT, 'int'),
     W('W0.18', [27.0, 0.0], [27.0, 2.4], 0.15, 0.40, ZT, 'int', [door(0.6, 1.4, 0.40)]),
-    // Rampa: contención este
-    W('W0.19', [31.4, -3.0], [31.4, 11.65], 0.20, 0, 1.5, 'conc'),
+    // Rampa 8 % (E3/E4: banda x 29.7..31.0, y 2.0..13.9): contención este y cierre oeste bajo la suite
+    W('W0.19', [31.1, 2.0], [31.1, 13.9], 0.20, 0, 1.6, 'conc'),
+    W('W0.12b', [29.45, 11.65], [29.45, 13.9], 0.20, 0, 1.40, 'conc'),
     // Contención del deck frente al jardín frontal
     W('W0.21', [-0.3, 11.65], [-0.3, 17.65], 0.20, 0, 1.40, 'conc'),
   ],
@@ -61,22 +66,26 @@ export const level0 = {
   slabs: [
     slab([-4.8, 32.5, -3.0, 9.4], -0.3, 0.0, 'garage', 'conc'),             // piso del garaje
     slab([-4.8, -1.4, 5.5, 9.4], 0.0, 0.25, 'tileGrey', 'conc'),             // cuarto de guardia
-    slab([-4.85, 3.5, 9.4, 11.65], 0.0, 0.25, 'concPolished', 'conc'),       // pasillo de entrada
+    slab([-4.85, 4.65, 9.4, 11.65], 0.0, 0.25, 'concPolished', 'conc'),      // pasillo de entrada (hasta el arranque de E0.1)
     slab([19.5, 22.6, 7.5, 9.4], 0.0, 0.40, 'tileGrey', 'conc'),             // vestíbulo 0.4
+    slab([21.2, 23.0, 9.4, 11.65], 0.0, 0.40, 'tileGrey', 'conc'),           // descanso bajo de E0.3 (+0.40)
     slab([23.0, 29.45, 0.0, 9.4], 0.0, 0.40, 'tileGrey', 'conc'),            // módulo de servicio
+    slab([23.0, 24.55, 9.4, 9.6], 0.0, 0.40, 'tileGrey', 'conc'),            // arranque de E0.4
     slab([-4.8, -0.3, 11.65, 17.65], -0.3, 0.0, 'grass', 'conc'),            // jardín frontal
     slab([-0.3, 2.2, 9.4, 11.65], 2.95, 3.20, 'conc', 'ceiling'),            // losa baja sobre el pasillo (E7)
   ],
 
   ramps: [
-    { box: [29.6, 31.4, -3.0, 11.65], zStart: 0.0, zEnd: 1.17, dir: '+y', mat: 'concPolished' },
+    // 11.9 m al 8 % = 0.95 m: del patio este (+1.40, y 13.9) baja a +0.45 en y 2.0; 3 peldaños hasta el garaje (+0.00)
+    { box: [29.7, 31.0, 2.0, 13.9], zStart: 0.45, zEnd: 1.40, dir: '+y', mat: 'concPolished' },
   ],
 
   stairs: [
-    stair('E0.1', [3.5, 5.1, 9.9, 11.4], 0.25, 1.40, '+x', 6),
-    stair('E0.2', [-1.9, -0.4, 12.5, 17.4], 0.0, 1.40, '+y', 10),
-    stair('E0.3', [19.7, 22.6, 9.9, 11.4], 0.40, 1.40, '+y', 6),
-    stair('E0.4', [23.2, 24.5, 9.9, 11.4], 0.40, 1.40, '+y', 6),
+    stair('E0.1', [4.65, 6.2, 9.6, 11.65], 0.25, 1.40, '+x', 6),                     // E4: 4.65..6.2, 'b' al este → sube al este
+    stair('E0.2', [-1.9, -0.4, 12.5, 17.65], 0.0, 1.40, '+y', 10, 'stair', { rail: '-x' }),   // E3: 10 peldaños numerados, llega al deck en y 17.65
+    stair('E0.3', [19.4, 21.2, 9.6, 11.5], 0.40, 1.40, '-x', 6),                     // E3/E4: tramo a lo largo de x, sube al oeste
+    stair('E0.4', [23.2, 24.5, 9.6, 11.65], 0.40, 1.40, '+y', 6),
+    stair('E0.8', [29.7, 31.0, 1.55, 2.0], 0.0, 0.45, '+y', 3),                      // pie de la rampa
     stair('E0.5', [21.7, 22.5, 6.9, 7.5], 0.0, 0.40, '+y', 3),
     stair('E0.6', [22.3, 23.0, 7.9, 8.8], 0.0, 0.40, '+x', 3),
     stair('E0.7', [22.3, 23.0, 4.8, 5.6], 0.0, 0.40, '+x', 3),
@@ -84,11 +93,11 @@ export const level0 = {
 
   rooms: [
     room('Garaje', [-4.0, 23.0, -3.0, 9.4], 0.0, 335), room('Cuarto de guardia', [-4.8, -1.4, 5.5, 9.4], 0.25, 12.5),
-    room('Pasillo de entrada', [-4.8, 3.5, 9.4, 11.65], 0.25, 18.7), room('Vestíbulo de garaje', [19.5, 22.6, 7.5, 9.4], 0.40, 5.9),
+    room('Pasillo de entrada', [-4.8, 4.65, 9.4, 11.65], 0.25, 18.7), room('Escalera de entrada', [4.65, 6.2, 9.4, 11.65], 0.8, 0), room('Vestíbulo de garaje', [19.5, 22.6, 7.5, 9.4], 0.40, 5.9),
     room('Pasillo de servicio', [23.0, 24.55, 2.4, 9.4], 0.40, 14.6), room('Lavandería', [24.55, 27.5, 5.2, 9.4], 0.40, 12.4),
     room('Depósito', [27.5, 29.45, 7.6, 9.4], 0.40, 3.5), room('Baño de servicio', [27.5, 29.45, 5.2, 7.6], 0.40, 4.7),
     room('Dormitorio de servicio 1', [24.55, 29.45, 2.4, 5.2], 0.40, 13.7), room('Dormitorio de servicio 2', [23.0, 27.0, 0.0, 2.4], 0.40, 9.6),
-    room('Baño 2 de servicio', [27.0, 29.45, 0.0, 2.4], 0.40, 5.9), room('Rampa vehicular', [29.6, 31.4, -3.0, 11.65], 0.0, 0),
+    room('Baño 2 de servicio', [27.0, 29.45, 0.0, 2.4], 0.40, 5.9), room('Rampa de servicio 8 %', [29.7, 31.0, 1.5, 13.9], 0.9, 0),
     room('Jardín frontal', [-4.8, -0.3, 11.65, 17.65], 0.0, 27), room('Garaje · brazo sur', [23.0, 31.4, -3.0, 0.0], 0.0, 0),
   ],
 

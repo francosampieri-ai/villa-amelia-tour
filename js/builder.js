@@ -130,10 +130,10 @@ function frame(f, s0, s1, z0, z1, t, batch, head) {
 }
 
 function doorLeaf(f, o, t, batch) {
-  // Hoja abierta ~80° hacia el lado +n, con bisagra en s0
-  const w = o.s1 - o.s0, h = o.z1 - o.z0 - 0.02;
-  const [hx, hy] = f.pt(o.s0 + 0.02, t / 2);
-  const ang = f.ang + Math.PI / 2 * 0.9;
+  // Hoja abierta ~80°. o.swing: +1 hacia el lado +n (izquierda del sentido a→b), -1 hacia -n. o.hinge: 'a' (s0) | 'b' (s1).
+  const w = o.s1 - o.s0, h = o.z1 - o.z0 - 0.02, sw = o.swing || 1, hingeB = o.hinge === 'b';
+  const [hx, hy] = f.pt(hingeB ? o.s1 - 0.02 : o.s0 + 0.02, sw * t / 2);
+  const ang = (hingeB ? f.ang + Math.PI : f.ang) + (hingeB ? -1 : 1) * sw * Math.PI / 2 * 0.9;
   const cx = hx + Math.cos(ang) * w / 2, cy = hy + Math.sin(ang) * w / 2;
   batch.add(orientedBox(cx, cy, w, 0.04, o.z0 + 0.01, o.z0 + 0.01 + h, ang), 'wood');
 }

@@ -8,6 +8,13 @@ import { FirstPerson } from './controls.js';
 import { Dollhouse } from './dollhouse.js';
 import { GuidedTour } from './tour.js';
 import { showWelcome } from './welcome.js';
+import { applyHQ } from './hq.js';
+import { loadBIM } from './bim.js';
+import { loadDecor } from './decor.js';
+import { loadPlantas } from './plantas.js';
+import { createPost } from './post.js';
+import { addFloorReflection } from './reflejo.js';
+import { loadBaked } from './baked.js';
 import { level0 } from './data/level0.js';
 import { level1 } from './data/level1.js';
 import { level2 } from './data/level2.js';
@@ -119,6 +126,7 @@ window.addEventListener('keydown', e => {
 window.addEventListener('resize', () => {
   const a = window.innerWidth / window.innerHeight;
   renderer.setSize(window.innerWidth, window.innerHeight);
+  if (typeof post !== 'undefined' && post) post.setSize(window.innerWidth, window.innerHeight);
   fpCamera.aspect = a; fpCamera.updateProjectionMatrix(); dollhouse.setAspect(a);
 });
 
@@ -127,19 +135,22 @@ fp.setPose(level1.spawn.x, level1.spawn.y, level1.z, level1.spawn.yaw); fp.aimOp
 setView('fp'); setLevel(1);
 
 let frames = 0;
+const hqReady = loadBIM({ scene, levels, roof, site: siteBuilt.group, colliders, floorTargets, fp }).then(b => { window.__bim = b; return applyHQ({ scene, renderer, daylight, levels, isMobile }); }).then(r => { window.__hq = r; return new URLSearchParams(location.search).get('bake') === 'off' ? null : loadBaked({ scene, renderer, levels, roof, floorTargets, zone: new URLSearchParams(location.search).get('bake') || 'salon' }); }).then(r => { window.__baked = r; return r && r.env && new URLSearchParams(location.search).get('deco') !== 'off' ? loadDecor({ levels, colliders, env: r.env, zone: r.zone }) : null; }).then(d => { window.__decor = d; return d && window.__baked ? loadDecor({ levels, colliders, env: window.__baked.env, zone: window.__baked.zone, name: 'arte' }) : null; }).then(a => { window.__arte = a; return loadPlantas({ scene }); }).then(p => { window.__plantas = p; window.__reflejo = new URLSearchParams(location.search).get('reflejo') === 'off' || !window.__baked ? null : addFloorReflection({ levels, renderer, isMobile }); return window.__hq; });
 window.__tour = {
   goto, setView, setLevel, setPalette, setHour: h => daylight.setHour(h), topView: h => dollhouse.topView(h),
   tour, fp, dollhouse, scene, renderer, levels, colliders,
   get frames() { return frames; }, get view() { return view; }, get level() { return currentLevel; },
   ready: new Promise(res => requestAnimationFrame(() => requestAnimationFrame(() => res(true)))),
-  stats: () => renderer.info.render,
+  stats: () => renderer.info.render, hqReady,
 };
 
+const post = new URLSearchParams(location.search).get('post') === 'off' ? null : createPost(renderer, scene, fpCamera, { isMobile });
+window.__post = post && { gtao: !!post.gtao };
 const clock = new THREE.Clock();
 function animate() {
   const dt = Math.min(clock.getDelta(), 0.05);
   if (view === 'fp') fp.update(dt); else dollhouse.update();
-  renderer.render(scene, view === 'fp' ? fpCamera : dollhouse.camera);
+  if (view === 'fp' && post) post.render(dt); else renderer.render(scene, view === 'fp' ? fpCamera : dollhouse.camera);
   frames++;
   requestAnimationFrame(animate);
 }

@@ -6,7 +6,7 @@ const Z = 3.47, ZT = 7.10, YS = 1.95; // cota de piso, techo y fachada sur del b
 
 export const level2 = {
   id: 2, name: 'N2 · Dormitorios', z: Z,
-  spawn: { x: 10.0, y: 8.6, yaw: 0 },
+  spawn: { x: 13.0, y: 8.1, yaw: 0 },  // recalculado sobre el BIM
 
   walls: [
     // Muro-estantería hacia la doble altura: antepecho-jardinera + celosía; hueco de paso del desembarco (E5: 12.6..13.85)

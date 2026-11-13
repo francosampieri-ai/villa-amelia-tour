@@ -5,7 +5,7 @@ const Z = 4.30, Z3 = 4.90, ZT = 7.10, ZR = 7.40;
 
 export const level3 = {
   id: 3, name: 'N3 · Estar familiar y terrazas', z: Z,
-  spawn: { x: 19.0, y: 10.3, yaw: 135 },  // punto abierto del estar familiar (antes 20.5,14.5 quedaba encerrado entre muebles)
+  spawn: { x: 21.15, y: 13.3, yaw: 90 },  // recalculado sobre el BIM (scripts/test_bim.py): punto con más rumbos libres en el mezzanine
 
   walls: [
     W('W3.1', [18.9, 11.8], [18.9, 17.45], 0.05, Z, 5.35, 'vid', [], { mullions: [13.7, 15.6], transoms: [] }),
@@ -52,9 +52,10 @@ export const level3 = {
   ],
 
   furniture: [
-    F('sofa', 20.4, 12.55, Z, 2.2, 1.1, 0.8, 0), F('sofa', 20.4, 15.6, Z, 2.2, 1.1, 0.8, 180), F('armchair', 21.9, 13.9, Z, 0.8, 0.8, 0.8, 215),
-    F('coffeeTable', 20.3, 14.75, Z, 1.0, 0.9, 0.35), F('rug', 20.5, 14.75, Z, 3.0, 3.6, 0.01, 0, { color: 0xc4bbaf }),
-    F('tv', 22.85, 14.65, Z, 0.08, 1.6, 0.95, 0), F('floorLamp', 22.3, 16.5, Z, 0.4, 0.4, 1.8), F('plant', 19.3, 17.0, Z, 0.7, 0.7, 1.6),
+    // B4: sofás 1.8 m desplazados al este; pasillo oeste libre 18.93..20.0 (1.07 m) desde la entrada 18.9..19.5
+    F('sofa', 20.9, 12.75, Z, 1.8, 1.1, 0.8, 0), F('sofa', 20.9, 15.65, Z, 1.8, 1.1, 0.8, 180), F('armchair', 22.3, 14.2, Z, 0.8, 0.8, 0.8, 225),
+    F('coffeeTable', 20.9, 14.2, Z, 0.8, 0.8, 0.35), F('rug', 20.9, 14.2, Z, 2.6, 3.6, 0.01, 0, { color: 0xc4bbaf }),
+    F('tv', 22.85, 14.2, Z, 0.08, 1.6, 0.95, 0), F('floorLamp', 22.3, 16.5, Z, 0.4, 0.4, 1.8), F('plant', 19.3, 17.2, Z, 0.7, 0.7, 1.6),
     // Terraza 2
     F('lounger', 24.65, 21.8, Z, 2.3, 0.8, 0.4, 90), F('lounger', 24.65, 20.15, Z, 2.3, 0.8, 0.4, 90), F('armchair', 26.05, 21.85, Z, 0.8, 0.8, 0.75, 90),
     F('coffeeTable', 26.7, 21.1, Z, 1.4, 0.8, 0.35), F('outSofa', 27.15, 21.5, Z, 1.0, 3.0, 0.7, 0), F('coffeeTable', 27.55, 22.75, Z, 2.0, 0.6, 0.45),
@@ -72,17 +73,25 @@ export const level3 = {
       // Bloque de dormitorios (fachada sur en y 1.95, E5); huecos: patio sur 2.15..8.9 × 1.95..3.3, lucernario del baño 3 18.6..20.1 × 1.95..4.03
       slab([-0.3, 2.15, 1.95, 3.3], ZT, ZR, 'roof', 'ceiling'), slab([8.9, 18.6, 1.95, 3.3], ZT, ZR, 'roof', 'ceiling'), slab([20.1, 23.1, 1.95, 3.3], ZT, ZR, 'roof', 'ceiling'),
       slab([-0.3, 18.6, 3.3, 4.03], ZT, ZR, 'roof', 'ceiling'), slab([20.1, 23.1, 3.3, 4.03], ZT, ZR, 'roof', 'ceiling'),
-      slab([-0.3, 23.1, 4.03, 6.5], ZT, ZR, 'roof', 'ceiling'),
-      slab([-0.3, 3.6, 6.5, 9.4], ZT, ZR, 'roof', 'ceiling'), slab([16.5, 23.1, 6.5, 9.4], ZT, ZR, 'roof', 'ceiling'),
-      slab([3.6, 16.5, 6.5, 9.4], ZR - 0.06, ZR, 'glassRoof', 'glassRoof'),           // lucernario del hall
-      slab([-0.3, 23.1, 9.4, 17.65], ZT, ZR, 'roof', 'ceiling'),
-      slab([-0.3, 23.1, 17.65, 18.6], ZR - 0.20, ZR, 'roof', 'conc'),                 // volado norte
-      slab([23.1, 30.3, 1.95, 9.4], ZT, ZR, 'roof', 'ceiling'),                       // bloque master (vuela hasta x 30.3, E5)
+      slab([-0.3, 22.7, 4.03, 5.9], ZT, ZR, 'roof', 'ceiling'),
+      slab([-0.3, 4.4, 5.9, 9.55], ZT, ZR, 'roof', 'ceiling'), slab([20.9, 22.7, 5.9, 9.55], ZT, ZR, 'roof', 'ceiling'),
+      slab([4.4, 20.9, 5.9, 9.55], ZR - 0.06, ZR, 'glassRoof', 'glassRoof'),          // lucernario del hall (E7: U en x 4.4 / 20.9, y 5.9..9.55)
+      slab([-0.3, 23.1, 9.55, 17.65], ZT, ZR, 'roof', 'ceiling'),
+      slab([-0.3, 23.1, 17.65, 19.0], ZR - 0.20, ZR, 'roof', 'conc'),                 // volado norte (E7: borde 18.86..19.10)
+      slab([22.7, 30.2, -1.6, 9.6], ZT, ZR, 'roof', 'ceiling'),                       // bloque master (E7: y -1.66..9.6, x hasta 30.2)
+      slab([0.95, 1.9, 9.6, 11.75], ZR, ZR + 0.6, 'conc', 'conc'),                    // chimenea / ducto (E7)
     ],
     walls: [
-      W('W3.10a', [2.0, 2.4], [21.5, 2.4], 0.05, ZR, 7.90, 'rail'), W('W3.10b', [21.5, 2.4], [21.5, 17.65], 0.05, ZR, 7.90, 'rail'),
-      W('W3.10c', [21.5, 17.65], [2.0, 17.65], 0.05, ZR, 7.90, 'rail'), W('W3.10d', [2.0, 17.65], [2.0, 2.4], 0.05, ZR, 7.90, 'rail'),
+      // Pretil del lucernario (3 lados) y pretil perimetral 0.15 (E9); baranda 0.95 retranqueada (E9 corte la muestra, E7 no)
+      W('W3.10d', [2.0, 2.4], [21.5, 2.4], 0.05, ZR, ZR + 0.95, 'rail'), W('W3.10e', [21.5, 2.4], [21.5, 17.65], 0.05, ZR, ZR + 0.95, 'rail'),
+      W('W3.10f', [21.5, 17.65], [2.0, 17.65], 0.05, ZR, ZR + 0.95, 'rail'), W('W3.10g', [2.0, 17.65], [2.0, 2.4], 0.05, ZR, ZR + 0.95, 'rail'),
+      W('W3.10a', [4.4, 9.55], [20.9, 9.55], 0.15, ZR, ZR + 0.15, 'conc'), W('W3.10b', [4.4, 5.9], [4.4, 9.55], 0.15, ZR, ZR + 0.15, 'conc'),
+      W('W3.10c', [20.9, 5.9], [20.9, 9.55], 0.15, ZR, ZR + 0.15, 'conc'),
+      W('W3.12a', [-0.3, 1.95], [-0.3, 19.0], 0.15, ZR, ZR + 0.15, 'conc'), W('W3.12b', [-0.3, 19.0], [23.1, 19.0], 0.15, ZR, ZR + 0.15, 'conc'),
+      W('W3.12c', [23.1, 9.6], [23.1, 19.0], 0.15, ZR, ZR + 0.15, 'conc'), W('W3.12d', [-0.3, 1.95], [22.7, 1.95], 0.15, ZR, ZR + 0.15, 'conc'),
+      W('W3.12e', [22.7, 9.6], [30.2, 9.6], 0.15, ZR, ZR + 0.15, 'conc'), W('W3.12f', [30.2, -1.6], [30.2, 9.6], 0.15, ZR, ZR + 0.15, 'conc'),
+      W('W3.11', [22.7, -1.6], [30.2, -1.6], 0.15, ZR, ZR + 0.9, 'ant'),             // borde sur del bloque master (balcón)
     ],
-    louvers: [{ a: [6.25, 18.5], b: [23.0, 18.5], z0: 4.30, z1: 7.40, step: 0.35, w: 0.08, h: 0.25, mat: 'dark' }],
+    louvers: [{ a: [6.25, 18.9], b: [23.0, 18.9], z0: 4.30, z1: 7.40, step: 0.35, w: 0.08, h: 0.25, mat: 'dark' }],
   },
 };

@@ -1,0 +1,389 @@
+{
+ "colliders": [
+  {
+   "cx": 10.72,
+   "cy": 15.55,
+   "hl": 0.2,
+   "ht": 0.2,
+   "ang": 0,
+   "z0": 1.415,
+   "z1": 3.015,
+   "deco": "lampara"
+  },
+  {
+   "cx": 0.47,
+   "cy": 15.66,
+   "hl": 0.2,
+   "ht": 0.2,
+   "ang": 0,
+   "z0": 1.415,
+   "z1": 3.015,
+   "deco": "lampara"
+  },
+  {
+   "cx": 0.62,
+   "cy": 16.5,
+   "hl": 0.34576574302189705,
+   "ht": 0.34576574302189705,
+   "ang": 0,
+   "z0": 1.415,
+   "z1": 3.315,
+   "deco": "pachira_aquatica_01"
+  },
+  {
+   "cx": 12.2,
+   "cy": 16.66,
+   "hl": 0.24273720827731177,
+   "ht": 0.24273720827731177,
+   "ang": 0,
+   "z0": 1.415,
+   "z1": 2.715,
+   "deco": "potted_plant_01"
+  },
+  {
+   "cx": 18.62,
+   "cy": 16.55,
+   "hl": 0.32869330048561096,
+   "ht": 0.32869330048561096,
+   "ang": 0,
+   "z0": 1.415,
+   "z1": 2.2561787152290345,
+   "deco": "potted_plant_02"
+  }
+ ],
+ "lights": [
+  {
+   "kind": "SPOT",
+   "name": "dl0",
+   "loc": [
+    0.9,
+    11.95,
+    7.17
+   ],
+   "W": 320.0
+  },
+  {
+   "kind": "SPOT",
+   "name": "dl1",
+   "loc": [
+    0.9,
+    15.75,
+    7.17
+   ],
+   "W": 320.0
+  },
+  {
+   "kind": "SPOT",
+   "name": "dl2",
+   "loc": [
+    2.8,
+    11.95,
+    7.17
+   ],
+   "W": 320.0
+  },
+  {
+   "kind": "SPOT",
+   "name": "dl3",
+   "loc": [
+    2.8,
+    15.75,
+    7.17
+   ],
+   "W": 320.0
+  },
+  {
+   "kind": "SPOT",
+   "name": "dl4",
+   "loc": [
+    4.7,
+    11.95,
+    7.17
+   ],
+   "W": 320.0
+  },
+  {
+   "kind": "SPOT",
+   "name": "dl5",
+   "loc": [
+    4.7,
+    13.85,
+    7.17
+   ],
+   "W": 320.0
+  },
+  {
+   "kind": "SPOT",
+   "name": "dl6",
+   "loc": [
+    4.7,
+    15.75,
+    7.17
+   ],
+   "W": 320.0
+  },
+  {
+   "kind": "SPOT",
+   "name": "dl7",
+   "loc": [
+    6.6,
+    11.95,
+    7.17
+   ],
+   "W": 320.0
+  },
+  {
+   "kind": "SPOT",
+   "name": "dl8",
+   "loc": [
+    8.5,
+    11.95,
+    7.17
+   ],
+   "W": 320.0
+  },
+  {
+   "kind": "SPOT",
+   "name": "dl9",
+   "loc": [
+    10.4,
+    11.95,
+    7.17
+   ],
+   "W": 320.0
+  },
+  {
+   "kind": "SPOT",
+   "name": "dl10",
+   "loc": [
+    10.4,
+    13.85,
+    7.17
+   ],
+   "W": 320.0
+  },
+  {
+   "kind": "SPOT",
+   "name": "dl11",
+   "loc": [
+    10.4,
+    15.75,
+    7.17
+   ],
+   "W": 320.0
+  },
+  {
+   "kind": "SPOT",
+   "name": "dl12",
+   "loc": [
+    12.3,
+    11.95,
+    7.17
+   ],
+   "W": 320.0
+  },
+  {
+   "kind": "SPOT",
+   "name": "dl13",
+   "loc": [
+    12.3,
+    15.75,
+    7.17
+   ],
+   "W": 320.0
+  },
+  {
+   "kind": "SPOT",
+   "name": "dl14",
+   "loc": [
+    14.2,
+    11.95,
+    7.17
+   ],
+   "W": 320.0
+  },
+  {
+   "kind": "SPOT",
+   "name": "dl15",
+   "loc": [
+    16.1,
+    11.95,
+    7.17
+   ],
+   "W": 320.0
+  },
+  {
+   "kind": "SPOT",
+   "name": "dl16",
+   "loc": [
+    16.1,
+    15.75,
+    7.17
+   ],
+   "W": 320.0
+  },
+  {
+   "kind": "SPOT",
+   "name": "dl17",
+   "loc": [
+    18.0,
+    11.95,
+    7.17
+   ],
+   "W": 320.0
+  },
+  {
+   "kind": "SPOT",
+   "name": "dl18",
+   "loc": [
+    18.0,
+    13.85,
+    7.17
+   ],
+   "W": 320.0
+  },
+  {
+   "kind": "SPOT",
+   "name": "dl19",
+   "loc": [
+    18.0,
+    15.75,
+    7.17
+   ],
+   "W": 320.0
+  },
+  {
+   "kind": "SPOT",
+   "name": "dl20",
+   "loc": [
+    19.65,
+    12.5,
+    3.87
+   ],
+   "W": 30.0
+  },
+  {
+   "kind": "SPOT",
+   "name": "dl21",
+   "loc": [
+    19.65,
+    16.25,
+    3.87
+   ],
+   "W": 30.0
+  },
+  {
+   "kind": "SPOT",
+   "name": "dl22",
+   "loc": [
+    20.9,
+    12.5,
+    3.87
+   ],
+   "W": 30.0
+  },
+  {
+   "kind": "SPOT",
+   "name": "dl23",
+   "loc": [
+    20.9,
+    16.25,
+    3.87
+   ],
+   "W": 30.0
+  },
+  {
+   "kind": "SPOT",
+   "name": "dl24",
+   "loc": [
+    22.15,
+    13.75,
+    3.87
+   ],
+   "W": 30.0
+  },
+  {
+   "kind": "SPOT",
+   "name": "dl25",
+   "loc": [
+    22.15,
+    15.0,
+    3.87
+   ],
+   "W": 30.0
+  },
+  {
+   "kind": "SPOT",
+   "name": "dl26",
+   "loc": [
+    22.15,
+    16.25,
+    3.87
+   ],
+   "W": 30.0
+  },
+  {
+   "kind": "AREA",
+   "name": "graz0",
+   "loc": [
+    9.425,
+    9.75,
+    1.445
+   ],
+   "W": 321.75000000000006
+  },
+  {
+   "kind": "AREA",
+   "name": "piedra1",
+   "loc": [
+    6.67,
+    14.56,
+    2.26
+   ],
+   "W": 218.40206146240234
+  },
+  {
+   "kind": "POINT",
+   "name": "pie0",
+   "loc": [
+    10.72,
+    15.55,
+    2.815
+   ],
+   "W": 55.0
+  },
+  {
+   "kind": "POINT",
+   "name": "pie1",
+   "loc": [
+    0.47,
+    15.66,
+    2.815
+   ],
+   "W": 55.0
+  }
+ ],
+ "log": [
+  "downlights 27",
+  "bañador piso x 6.50-12.35 y 9.65",
+  "bañador piedra L1|X|Walls|6935 L=3.12 z=2.29",
+  "planta pachira_aquatica_01 (0.62,16.5) h=1.90 r=0.35",
+  "planta potted_plant_01 (12.2,16.66) h=1.30 r=0.24",
+  "planta potted_plant_02 (18.62,16.55) h=0.84 r=0.33",
+  "DECO|L1|bol|0 sobre L1|X|Furniture|7197.001 z=1.815",
+  "DECO|L1|florero|0 sobre L1|X|Furniture|7197.001 z=1.815",
+  "DECO|L1|libros|0 sobre L1|X|Furniture|7197.001 z=1.815",
+  "DECO|L1|florero|1 sobre L1|X|Furniture|7237 z=2.165",
+  "DECO|L1|bol|1 sobre L1|X|Furniture|7237 z=2.165",
+  "DECO|L1|bol|2 sobre L1|F|Floors|7425 z=2.300",
+  "DECO|L1|florero|2 sobre L1|X|Generic Models|9074 z=2.336",
+  "DECO|L1|planta_mesa|0 sobre L1|X|Generic Models|9067 z=2.300",
+  "cojín 0 oxido sobre L1|X|Furniture|7155 respaldo a 0.51",
+  "cojín 1 crudo sobre L1|X|Furniture|7158 respaldo a 0.51",
+  "cojín 2 petroleo sobre L1|X|Furniture|7168 respaldo a 0.46",
+  "cojín 3 crudo sobre L1|X|Furniture|7167 respaldo a 0.39",
+  "cojín 4 arena sobre L1|X|Furniture|7167 respaldo a 0.36",
+  "cojín 5 crudo sobre L1|X|Furniture|7087 respaldo a 0.27",
+  "cojín 6 oxido sobre L1|X|Furniture|7088 respaldo a 0.27"
+ ]
+}

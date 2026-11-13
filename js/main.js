@@ -14,6 +14,10 @@ import { loadDecor } from './decor.js';
 import { loadPlantas } from './plantas.js';
 import { createPost } from './post.js';
 import { addFloorReflection } from './reflejo.js';
+// atardecer: vidrio más oscuro (menos velo blanco del exterior iluminado)
+function darkenGlass(scene) { const seen = new Set(); scene.traverse(o => { if (!o.isMesh || o.name === 'reflejo_piso') return;
+  for (const m of Array.isArray(o.material) ? o.material : [o.material]) if (m && m.transparent && m.opacity < 0.3 && !m.isShaderMaterial && !seen.has(m)) {
+    seen.add(m); m.color.set(0x0b111b); m.opacity = 0.42; m.envMapIntensity = 0.5; } }); }
 import { loadBaked } from './baked.js';
 import { level0 } from './data/level0.js';
 import { level1 } from './data/level1.js';
@@ -133,9 +137,11 @@ window.addEventListener('resize', () => {
 // ---------------------------------------------------------------- Arranque
 fp.setPose(level1.spawn.x, level1.spawn.y, level1.z, level1.spawn.yaw); fp.aimOpen();
 setView('fp'); setLevel(1);
+// vista inicial: salón de doble altura (sofá, ventanal y cocina) en vez del punto de aparición genérico
+const START = { x: 9.0, y: 12.2, yaw: 50 }; fp.setPose(START.x, START.y, level1.z, START.yaw); fp.update(0);
 
 let frames = 0;
-const hqReady = loadBIM({ scene, levels, roof, site: siteBuilt.group, colliders, floorTargets, fp }).then(b => { window.__bim = b; return applyHQ({ scene, renderer, daylight, levels, isMobile }); }).then(r => { window.__hq = r; return new URLSearchParams(location.search).get('bake') === 'off' ? null : loadBaked({ scene, renderer, levels, roof, floorTargets, zone: new URLSearchParams(location.search).get('bake') || 'salon' }); }).then(r => { window.__baked = r; return r && r.env && new URLSearchParams(location.search).get('deco') !== 'off' ? loadDecor({ levels, colliders, env: r.env, zone: r.zone }) : null; }).then(d => { window.__decor = d; return d && window.__baked ? loadDecor({ levels, colliders, env: window.__baked.env, zone: window.__baked.zone, name: 'arte' }) : null; }).then(a => { window.__arte = a; return loadPlantas({ scene }); }).then(p => { window.__plantas = p; window.__reflejo = new URLSearchParams(location.search).get('reflejo') === 'off' || !window.__baked ? null : addFloorReflection({ levels, renderer, isMobile }); return window.__hq; });
+const hqReady = loadBIM({ scene, levels, roof, site: siteBuilt.group, colliders, floorTargets, fp }).then(b => { window.__bim = b; return applyHQ({ scene, renderer, daylight, levels, isMobile }); }).then(r => { window.__hq = r; return new URLSearchParams(location.search).get('bake') === 'off' ? null : loadBaked({ scene, renderer, levels, roof, floorTargets, zone: new URLSearchParams(location.search).get('bake') || 'salon' }); }).then(r => { window.__baked = r; return r && r.env && new URLSearchParams(location.search).get('deco') !== 'off' ? loadDecor({ levels, colliders, env: r.env, zone: r.zone }) : null; }).then(d => { window.__decor = d; return d && window.__baked ? loadDecor({ levels, colliders, env: window.__baked.env, zone: window.__baked.zone, name: 'arte' }) : null; }).then(a => { window.__arte = a; return loadPlantas({ scene }); }).then(p => { window.__plantas = p; if (window.__hora === 'atardecer') darkenGlass(scene); window.__reflejo = new URLSearchParams(location.search).get('reflejo') === 'off' || !window.__baked ? null : addFloorReflection({ levels, renderer, isMobile }); return window.__hq; });
 window.__tour = {
   goto, setView, setLevel, setPalette, setHour: h => daylight.setHour(h), topView: h => dollhouse.topView(h),
   tour, fp, dollhouse, scene, renderer, levels, colliders,

@@ -16,6 +16,7 @@ const R = {
   lacquer:     { rough: 0.55, env: 0.45 },
   woodStair:   { tex: 'oak_veneer_01', mode: 'gray', size: 1.2, rough: 0.6, nScale: 0.4, detail: 0.6, env: 0.35, roughFixed: true },
   woodSlat:    { tex: 'natural_walnut_veneer', mode: 'gray', size: 1.0, rough: 0.6, nScale: 0.4 },
+  woodCeil:    { tex: 'listones_cielo', mode: 'gray', size: 1.2, rough: 1, nScale: 0.8, env: 0.25 },   // cielo de listones (aprobado por Franco 13-nov)
   woodDoor:    { tex: 'oak_veneer_01', mode: 'gray', size: 1.2, rough: 0.6, nScale: 0.3 },
   furnWood:    { tex: 'oak_veneer_01', mode: 'gray', size: 0.8, rough: 0.62, nScale: 0.3, detail: 0.55, env: 0.3, whiteDetail: 0.2, roughFixed: true },
   metal:       { rough: 0.38, metal: 0.65 },
